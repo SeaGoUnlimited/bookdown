@@ -1,0 +1,246 @@
+# Navigating the Database {#database}
+
+Note: to include data from before 2018, make sure you are accessing the old database via Docker and combining it with any new data. 
+
+**Structures Query Language (SQL)** can be used to query the database tables in order to attain useful information. 
+**SpatiaLite** can be utilized to extend SQL spatial capabilities. 
+
+## Building the database 
+This is an instructional walkthrough on how to use the Python scripts that build the database. This will provide an in-depth procedure for those who want to understand the code or edit the process. 
+
+**Software Requirements:** 
+Git, Python 3.6, Shapely, a database browser (such as Sqlite Studio or DB Browser), SQLite, SpatiaLite*
+*Only needed to do spatial analysis with SQL code
+
+
+### To start:
+
+**1.	Open terminal for command line interfacing:**
+
+This is the simplest way to ensure that users with different operating systems can utilize our data management application. 
+
+OR
+
+**[Anaconda](https://www.anaconda.com/distribution/) & [MiniConda](https://docs.conda.io/en/latest/miniconda.html) are useful tools, which come with python.**
+
+This open-source platform is a simple way to perform Python data science, allowing individual data scientists to quickly download 1,500+ packages, manage libraries and dependencies, analyze data, and visualize results. 
+
+
+**2.	Ensure your computer has git and it’s configured:**
+
+Type git into the terminal. Many computers have git built in. 
+
+If git is not present or configured, follow [these instructions](https://help.github.com/articles/set-up-git/) to install and configure git.
+
+
+**3.	Set your working directory to your Github folder:**
+
+$ `cd /Users/’name’/github/`
+
+
+**4. Clone or Fork the [Seatizen Science GitHub repository](https://github.com/SeaGoUnlimited/SeatizenScience):**
+
+*This gets you the SEAtizen Science Application (python scripts, queries, shapefiles, and useful tables)*
+
+[Instructions on forking here.](https://help.github.com/articles/fork-a-repo/)
+
+- Go to the forked repository in your github, click Clone or download, copy the URL, and in the terminal type git clone, and then paste the URL you copied, and press enter.
+
+
+**5. Install [Sqlite3](https://www.sqlite.org/download.html)**
+
+- [Windows download](https://www.sqlite.org/2019/sqlite-dll-win64-x64-3270100.zip)
+- [Mac download](https://www.sqlite.org/2019/sqlite-tools-osx-x86-3270100.zip)
+- [Linux download](https://www.sqlite.org/2019/sqlite-tools-linux-x86-3270100.zip)
+
+Anaconda Method:
+
+- If you have anaconda setup, you can use the Terminal or Anaconda prompt (Windows) 
+
+  `conda install sqlite`
+
+
+SQLite3 is needed to set up the database:
+
+- SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. 
+- SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files. 
+- A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file.
+
+
+**6. Install shapely**
+
+Shapely is a BSD licensed (minimally restricted permissions) Python package for manipulation and analysis of planar geometric objects.
+
+Mac:
+
+`pip install shapely` 
+
+PC (in conda command):
+
+`conda install shapely`
+
+
+**7. Install homebrew:**
+
+Homebrew is useful to install the Spatialite extension needed to create the spatial features within the database. It’s also useful for other development applications.
+
+Mac: 
+
+Enter into terminal, press enter, and let homebrew install:
+
+`/user/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)`
+
+
+PC: 
+
+- Install miniconda (as opposed to Anaconda; much smaller file size)
+- Miniconda includes python and conda (program that you can use to install additional packages; package management system)
+- Install shapely for spatial analysis
+
+
+**8. Install Spatialite (Max/Linux only):**
+
+Enter into terminal:
+`brew install libspatialite`
+
+
+**9. Load Spotter Pro and Whale Alert data:**
+
+- Ensure the working directory is set to the SeatizenScience folder which should be present after cloning the repository.
+- Type cd, followed by the filepath to the SeatizenScience pro folder on your computer.
+- Once the working directory is set, you are ready to run the python scripts that create the database.
+- This will create and fill the database with data collected by trained Channel Island Naturalists Corps, CINC (citizen scientists) using the Spotter Pro app and Whale Alert app. 
+
+
+For both apps data, Enter: `bash main.sh`
+
+
+For Spotter Pro data, Enter:  `python update_spotter.py`
+
+- If you get an error message that says “ModuleNotFoundError: No module named 'shapely'”, type the following: `pip install shapely`
+For Whale Alert data, Enter this into terminal:  `python update_whalealert.py`
+
+
+**10. View the SQLite database:**
+
+Once the python scripts are finished running, the SQLite database will be present in the spotter pro folder. SQLite Studio appears to have the least glitches.
+
+The database can be easily browsed and queried using:
+
+- [DB browser for SQLite](https://sqlitebrowser.org/)
+- [DB Beaver](https://dbeaver.io/)
+- [SQLite Studio](https://sqlitestudio.pl/index.rvt?act=download)
+
+
+The database can also be visualized using [QGIS](https://qgis.org/en/site/forusers/download.html)
+
+
+
+----
+
+
+
+## Tables 
+Information about how to work with tables in the SQL browser. 
+
+1. **sightings:** Raw sightings data from Spotter Pro App
+2. **trips:** GPS Exchange Format (GPX) or 'VESSEL TRACKS' for each trip associated with the Spotter Pro sightings data. 'trip_id' is the unofficial foreign key between the 'sightings', 'weather', and 'trips' table.
+3. **weather:** Raw weather data for each Spotter Pro trip. 'trip_id' is the unofficial foreign key between the 'sightings', 'weather' and 'trips' table.
+4. **whale_alert:** Raw sightings data from Spotter Pro App.
+
+## Views
+
+1. **spotter_pro_obis:** 'sightings' data cleaned and reformatted to meet OBIS data standards.
+2. **whale_alert_obis:** 'whale_alert' data cleaned and reformatted to meet OBIS data standards.
+3. **spotter_pro_whale_alert_obis:** 'spotter_pro_obis' & 'whale_alert_obis' data combines into a larger marine mammals citizen. science dataset which meets OBIS data standards.
+4. **spotter_pro_clean:** Clean view of spotter pro data.
+5. **spotter_pro_weather:** Clean view of the spotter pro weather data.
+5. **whale_alert_clean:** Clean view of the whale alert data.
+
+
+## Additional functionality
+
+**1. Load shapefiles into spotter.sqlite database: Spatialite_tools is needed**
+
+Due to the large number of citizen scientists using a variety of devices in various geographic locations, shapefiles can be inserted into the database to only look at areas of interest. These can be queried in the database (SQL: INTERSECTS, etc.) to filter the database to particular regions and filter erroneous geographic info (land whale)
+
+*To begin:*
+
+- Unzip Spatialite_tools on your computer
+- To run spatial commands, enter commands like these into terminal:
+spatialite_tool ( -I ) shp specify the shapefile you want to import (-d) specify the database (-t) give it db geotable name (-g) give the geom (-s) SRID (-c) charset name
+
+
+*Examples:*
+
+Insert SBC shapefile into the database:
+
+`spatialite_tool -i -shp test_shape_files/ocean_clip_small -d spotter.sqlite -t sb_channel -g geom -s 4326 -c UTF-8`
+
+Insert west coast shapefile into the database:
+
+`spatialite_tool -i -shp west_coast_ocean/ne_10m_ocean -d spotter.sqlite -t west_coast -g geom -s 4326 -c UTF-8`
+
+Insert international shipping lane shapefile into the database:
+
+`spatialite_tool -i -shp ship_shapefile/ship_lane_2013 -d spotter.sqlite -t ship_lane_2013 -g geom -s 4326 -c UTF-8;`
+
+Insert simply ocean polygons (faster load time) shapefile into the database:
+`spatialite_tool -i -shp /Users/seangoral/simplified-water-polygons-complete/simplified_water_polygons -d spotter.sqlite -t ocean -g geom -s 3857 -c UTF-8;`
+
+
+
+**2. To do spatial queries in the database like ‘intersects’, you must load the spatialite extension in SQLiteStudio or the terminal.**
+
+*For SQLiteStudio – click the scroll and quill and paste in*
+
+For Macs:
+
+`SELECT load_extension("mod_spatialite.dylib");`
+
+Linux:
+
+`SELECT load_extension("mod_spatialite.so");`
+
+PC:
+
+`SELECT load_extension("mod_spatialite.dll");`
+
+
+**3. Load the expanded functions extension in SqliteStudio 
+(functions like standard deviation) Mac and Linux Only**
+
+[Further documentation here](http://kedeligdata.blogspot.com/2010/09/sqlite-with-stdev-standard-deviation.html)
+
+
+Includes:
+
+- *Math:* acos, asin, atan, atn2, atan2, acosh, asinh, atanh, difference, degrees, radians, cos, sin, tan, cot, cosh, sinh, tanh, coth, exp, log, log10, power, sign, sqrt, square, ceil, floor, pi. 
+- *String:* replicate, charindex, leftstr, rightstr, ltrim, rtrim, trim, replace, reverse, proper, padl, padr, padc, strfilter. 
+- *Aggregate:* stdev, variance, mode, median, lower_quartile, upper_quartile.
+
+To install:
+
+- Fetch the source code for the extension [here](http://www.sqlite.org/contrib?orderby=date) [direct link](http://www.sqlite.org/contrib/download/extension-functions.c?get=25)
+- Compile it:
+
+Mac $: `gcc -fno-common -dynamiclib extension-functions.c -o libsqlitefunctions.dylib`
+
+Linux $: `gcc -fPIC -lm -shared extension-functions.c -o libsqlitefunctions.so`
+
+- A library should be created. Copy the resulting library to some location where you want to store it. In my case that would be $HOME/opt/lib
+- 4.	Before executing your select statements be sure to load the extension in SQLite studio or favorite database browser by issuing the following command (within a SQL editor):
+
+`select load_extension('/full/path/to/libsqlitefunctions.so);`
+
+
+This extension library has also been added to the SeatizenScience github, so you can just enter your github path to spotter_pro/ libsqlitefunctions
+
+Example Mac:
+
+`select load_extension('/Users/seangoral/github/SEAtizen_Science/spotter_pro/libsqlitefunctions.dylib');`
+
+
+
+
+

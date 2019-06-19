@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Example Queries | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data</title>
+  <meta name="description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Example Queries | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  <meta name="github-repo" content="seatizenscience/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Example Queries | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data" />
+  
+  <meta name="twitter:description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  
+
+<meta name="author" content="Rae Fuhrman, Sean Goral, Niklas Griessbaum, Charlene Kormondy, Jasmine Vazin, and Molly Williams" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gis.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SEAtizen Science Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#required-software"><i class="fa fa-check"></i><b>1.1</b> Required Software</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="database.html"><a href="database.html"><i class="fa fa-check"></i><b>2</b> Navigating the Database</a><ul>
+<li class="chapter" data-level="2.1" data-path="database.html"><a href="database.html#building-the-database"><i class="fa fa-check"></i><b>2.1</b> Building the database</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="database.html"><a href="database.html#to-start"><i class="fa fa-check"></i><b>2.1.1</b> To start:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="database.html"><a href="database.html#tables"><i class="fa fa-check"></i><b>2.2</b> Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="database.html"><a href="database.html#views"><i class="fa fa-check"></i><b>2.3</b> Views</a></li>
+<li class="chapter" data-level="2.4" data-path="database.html"><a href="database.html#additional-functionality"><i class="fa fa-check"></i><b>2.4</b> Additional functionality</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>3</b> Accessing the Database with Docker</a><ul>
+<li class="chapter" data-level="3.1" data-path="docker.html"><a href="docker.html#instructions-for-maclinux-users"><i class="fa fa-check"></i><b>3.1</b> Instructions for Mac/Linux users</a></li>
+<li class="chapter" data-level="3.2" data-path="docker.html"><a href="docker.html#instructions-for-windows-users"><i class="fa fa-check"></i><b>3.2</b> Instructions for Windows users</a></li>
+<li class="chapter" data-level="3.3" data-path="docker.html"><a href="docker.html#instructions-for-kitematic"><i class="fa fa-check"></i><b>3.3</b> Instructions for Kitematic</a></li>
+<li class="chapter" data-level="3.4" data-path="docker.html"><a href="docker.html#docker-syntax"><i class="fa fa-check"></i><b>3.4</b> Docker Syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gis.html"><a href="gis.html"><i class="fa fa-check"></i><b>4</b> Connecting the Database to GIS</a></li>
+<li class="chapter" data-level="5" data-path="queries.html"><a href="queries.html"><i class="fa fa-check"></i><b>5</b> Example Queries</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="queries" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Example Queries</h1>
+<p><em>Using any SQLite browser, copy and paste these queries to get information about the data.</em></p>
+<p><a href="https://swcarpentry.github.io/sql-novice-survey/">For more information on how to use SQL, check out this resource!</a></p>
+<p><strong>1. How many total sightings have been recorded?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> <span class="fu">COUNT</span> (<span class="kw">id</span>)
+<span class="kw">FROM</span> spotter_pro_clean</code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 5.1: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">COUNT (id)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">8864</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>2. How many total sightings have there been in 2018?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="fu">COUNT</span> (<span class="ot">&quot;cinms_species&quot;</span>) <span class="kw">AS</span> <span class="ot">&quot;Number Sighted: 2018&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean
+<span class="kw">WHERE</span> (<span class="ot">&quot;create_date&quot;</span>) 
+<span class="kw">BETWEEN</span> <span class="ot">&quot;2018-01-01&quot;</span> <span class="kw">AND</span> <span class="ot">&quot;2018-12-31&quot;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 5.2: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Number Sighted: 2018</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1212</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>3. How many common short-beaked dolphins were sighted last September?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="fu">COUNT</span> (*) <span class="kw">AS</span> <span class="ot">&quot;Common Short-Beaked Dolphins: Sept-2018&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean
+<span class="kw">WHERE</span> <span class="ot">&quot;cinms_species&quot;</span> = <span class="ot">&quot;Common Short-Beaked Dolphin&quot;</span>
+<span class="kw">AND</span> <span class="ot">&quot;create_date&quot;</span> 
+<span class="kw">BETWEEN</span> <span class="ot">&quot;2018-09-01&quot;</span> <span class="kw">AND</span> <span class="ot">&quot;2018-09-31&quot;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 5.3: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Common Short-Beaked Dolphins: Sept-2018</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">13</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>4. On average, how many animals do we have per sighting, resolved per species?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> cinms_species, <span class="fu">AVG</span> (<span class="ot">&quot;individual_count&quot;</span>) <span class="kw">AS</span> <span class="ot">&quot;Average Number per Sighting&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean
+<span class="kw">GROUP</span> <span class="kw">BY</span> cinms_species</code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 5.4: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">cinms_species</th>
+<th align="right">Average Number per Sighting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Basking Shark</td>
+<td align="right">1.500000</td>
+</tr>
+<tr class="even">
+<td align="left">Blue Shark</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Blue Whale</td>
+<td align="right">5.729391</td>
+</tr>
+<tr class="even">
+<td align="left">Bottlenose Dolphin</td>
+<td align="right">31.142415</td>
+</tr>
+<tr class="odd">
+<td align="left">Common Long-Beaked Dolphin</td>
+<td align="right">332.776789</td>
+</tr>
+<tr class="even">
+<td align="left">Common Short-Beaked Dolphin</td>
+<td align="right">359.838356</td>
+</tr>
+<tr class="odd">
+<td align="left">Dali’s Porpoise</td>
+<td align="right">6.523809</td>
+</tr>
+<tr class="even">
+<td align="left">Fin Whale</td>
+<td align="right">1.635803</td>
+</tr>
+<tr class="odd">
+<td align="left">Gray Whale</td>
+<td align="right">2.266136</td>
+</tr>
+<tr class="even">
+<td align="left">Harbor Porpoise</td>
+<td align="right">2.017308</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>5. How many sightings have there been on each trip?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="ot">&quot;individual_count&quot;</span>, <span class="ot">&quot;trip_id&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean
+<span class="kw">GROUP</span> <span class="kw">BY</span> <span class="ot">&quot;trip_id&quot;</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">&quot;individual_count&quot;</span> <span class="kw">DESC</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 5.5: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="right">individual_count</th>
+<th align="right">trip_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">10000</td>
+<td align="right">3006</td>
+</tr>
+<tr class="even">
+<td align="right">3000</td>
+<td align="right">449</td>
+</tr>
+<tr class="odd">
+<td align="right">3000</td>
+<td align="right">11644</td>
+</tr>
+<tr class="even">
+<td align="right">2000</td>
+<td align="right">1005</td>
+</tr>
+<tr class="odd">
+<td align="right">2000</td>
+<td align="right">1006</td>
+</tr>
+<tr class="even">
+<td align="right">2000</td>
+<td align="right">4842</td>
+</tr>
+<tr class="odd">
+<td align="right">2000</td>
+<td align="right">5480</td>
+</tr>
+<tr class="even">
+<td align="right">2000</td>
+<td align="right">8012</td>
+</tr>
+<tr class="odd">
+<td align="right">2000</td>
+<td align="right">10363</td>
+</tr>
+<tr class="even">
+<td align="right">2000</td>
+<td align="right">10757</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>6. What is the probability of seeing a species on a trip (resolved for all species)?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> cinms_species, <span class="ot">&quot;individual_count&quot;</span> *<span class="fl">1.0</span>/ (<span class="kw">SELECT</span> <span class="fu">SUM</span> (<span class="ot">&quot;individual_count&quot;</span> ) 
+<span class="kw">FROM</span> spotter_pro_clean) <span class="kw">AS</span> <span class="ot">&quot;Probability&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean
+<span class="kw">GROUP</span> <span class="kw">BY</span> cinms_species
+<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">&quot;Probability&quot;</span> <span class="kw">DESC</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-7">Table 5.6: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">cinms_species</th>
+<th align="right">Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Common Short-Beaked Dolphin</td>
+<td align="right">5.88e-04</td>
+</tr>
+<tr class="even">
+<td align="left">Common Long-Beaked Dolphin</td>
+<td align="right">4.90e-05</td>
+</tr>
+<tr class="odd">
+<td align="left">Bottlenose Dolphin</td>
+<td align="right">2.45e-05</td>
+</tr>
+<tr class="even">
+<td align="left">Dali’s Porpoise</td>
+<td align="right">1.47e-05</td>
+</tr>
+<tr class="odd">
+<td align="left">Northern Elephant Seal</td>
+<td align="right">1.18e-05</td>
+</tr>
+<tr class="even">
+<td align="left">Northern Right Whale Dolphin</td>
+<td align="right">1.18e-05</td>
+</tr>
+<tr class="odd">
+<td align="left">Pacific White-Sided Dolphin</td>
+<td align="right">9.80e-06</td>
+</tr>
+<tr class="even">
+<td align="left">Killer Whale (Orca)</td>
+<td align="right">6.90e-06</td>
+</tr>
+<tr class="odd">
+<td align="left">Risso’s Dolphin</td>
+<td align="right">3.90e-06</td>
+</tr>
+<tr class="even">
+<td align="left">Humpback Whale</td>
+<td align="right">2.90e-06</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>7. What is the biggest number of sightings per species?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> cinms_species, individual_count
+<span class="kw">from</span> spotter_pro_clean
+<span class="kw">where</span>
+individual_count = (<span class="kw">select</span> <span class="fu">max</span>(individual_count) <span class="kw">from</span> spotter_pro_clean i <span class="kw">where</span> i.cinms_species = spotter_pro_clean.cinms_species)
+<span class="kw">GROUP</span> <span class="kw">BY</span> cinms_species</code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-8">Table 5.7: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">cinms_species</th>
+<th align="right">individual_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Basking Shark</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Blue Shark</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Blue Whale</td>
+<td align="right">1000</td>
+</tr>
+<tr class="even">
+<td align="left">Bottlenose Dolphin</td>
+<td align="right">1000</td>
+</tr>
+<tr class="odd">
+<td align="left">Common Long-Beaked Dolphin</td>
+<td align="right">10000</td>
+</tr>
+<tr class="even">
+<td align="left">Common Short-Beaked Dolphin</td>
+<td align="right">3000</td>
+</tr>
+<tr class="odd">
+<td align="left">Dali’s Porpoise</td>
+<td align="right">30</td>
+</tr>
+<tr class="even">
+<td align="left">Fin Whale</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">Gray Whale</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">Harbor Porpoise</td>
+<td align="right">22</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>8. How long (in time) has each trip been?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> trip_id, (julianday(<span class="ot">&quot;end_date&quot;</span>) - julianday(<span class="ot">&quot;start_date&quot;</span>))*<span class="dv">24</span> <span class="kw">AS</span> <span class="ot">&quot;Trip Duration (hours)&quot;</span>
+<span class="kw">FROM</span> trips
+<span class="kw">WHERE</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">&quot;Trip Duration (hours)&quot;</span> <span class="kw">DESC</span> </code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 5.8: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="right">trip_id</th>
+<th align="right">Trip Duration (hours)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">10371</td>
+<td align="right">1763.09917</td>
+</tr>
+<tr class="even">
+<td align="right">14245</td>
+<td align="right">893.74417</td>
+</tr>
+<tr class="odd">
+<td align="right">15279</td>
+<td align="right">749.92444</td>
+</tr>
+<tr class="even">
+<td align="right">14244</td>
+<td align="right">679.73111</td>
+</tr>
+<tr class="odd">
+<td align="right">918</td>
+<td align="right">263.67722</td>
+</tr>
+<tr class="even">
+<td align="right">20719</td>
+<td align="right">206.98278</td>
+</tr>
+<tr class="odd">
+<td align="right">1063</td>
+<td align="right">167.64250</td>
+</tr>
+<tr class="even">
+<td align="right">10509</td>
+<td align="right">167.27111</td>
+</tr>
+<tr class="odd">
+<td align="right">21716</td>
+<td align="right">122.92500</td>
+</tr>
+<tr class="even">
+<td align="right">20728</td>
+<td align="right">98.72083</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>9. How fast does each vessel go on average?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="ot">&quot;CINMS vessel&quot;</span>, <span class="fu">AVG</span>(<span class="fu">length</span> (geom)/<span class="dv">1000</span>)/((julianday(<span class="ot">&quot;end_date&quot;</span>) - julianday(<span class="ot">&quot;start_date&quot;</span>))*<span class="dv">24</span>) <span class="kw">AS</span> <span class="ot">&quot;speed(km/h)&quot;</span>
+<span class="kw">FROM</span> trips
+<span class="kw">WHERE</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span>
+<span class="kw">GROUP</span> <span class="kw">BY</span> <span class="ot">&quot;CINMS vessel&quot;</span>;</code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 5.9: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">CINMS Vessel</th>
+<th align="right">speed(km/h)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Azure Seas</td>
+<td align="right">2085.822674</td>
+</tr>
+<tr class="even">
+<td align="left">Celebration</td>
+<td align="right">10.599479</td>
+</tr>
+<tr class="odd">
+<td align="left">Condor Express</td>
+<td align="right">19.083574</td>
+</tr>
+<tr class="even">
+<td align="left">Double Dolphin</td>
+<td align="right">9.939858</td>
+</tr>
+<tr class="odd">
+<td align="left">IPCO Adventure</td>
+<td align="right">7.439560</td>
+</tr>
+<tr class="even">
+<td align="left">IPCO Explorer</td>
+<td align="right">16.159028</td>
+</tr>
+<tr class="odd">
+<td align="left">IPCO Islander</td>
+<td align="right">75.401607</td>
+</tr>
+<tr class="even">
+<td align="left">IPCO Vanguard</td>
+<td align="right">30.557220</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>10. Which vessel is the best? Which vessel has the most sightings per trip?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> spotter_pro_clean.individual_count, trips.trip_id, trips.<span class="ot">&quot;CINMS Vessel&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean 
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> individual_count <span class="kw">DESC</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-11">Table 5.10: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="right">individual_count</th>
+<th align="right">trip_id</th>
+<th align="left">CINMS Vessel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">10000</td>
+<td align="right">3006</td>
+<td align="left">Condor Express</td>
+</tr>
+<tr class="even">
+<td align="right">5011</td>
+<td align="right">6388</td>
+<td align="left">Island Packers</td>
+</tr>
+<tr class="odd">
+<td align="right">3200</td>
+<td align="right">4049</td>
+<td align="left">Condor Express</td>
+</tr>
+<tr class="even">
+<td align="right">3200</td>
+<td align="right">4050</td>
+<td align="left">Condor Express</td>
+</tr>
+<tr class="odd">
+<td align="right">3000</td>
+<td align="right">10519</td>
+<td align="left">Island Packers</td>
+</tr>
+<tr class="even">
+<td align="right">3000</td>
+<td align="right">11644</td>
+<td align="left">Condor Express</td>
+</tr>
+<tr class="odd">
+<td align="right">3000</td>
+<td align="right">3425</td>
+<td align="left">Condor Express</td>
+</tr>
+<tr class="even">
+<td align="right">3000</td>
+<td align="right">449</td>
+<td align="left">Condor Express</td>
+</tr>
+<tr class="odd">
+<td align="right">3000</td>
+<td align="right">6384</td>
+<td align="left">Island Packers</td>
+</tr>
+<tr class="even">
+<td align="right">3000</td>
+<td align="right">6890</td>
+<td align="left">Condor Express</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>11. Which observer saw the most Humpback Whales?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> spotter_pro_clean.individual_count, trips.<span class="ot">&quot;Observer Names&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean 
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span> spotter_pro_clean.cinms_species = <span class="ot">&quot;Humpback Whale&quot;</span>
+<span class="kw">AND</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> individual_count <span class="kw">DESC</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-12">Table 5.11: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="right">individual_count</th>
+<th align="left">Observer Names</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">44</td>
+<td align="left">Don Shubert; Rae emmet;</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="left">Ken Tatro;</td>
+</tr>
+<tr class="odd">
+<td align="right">22</td>
+<td align="left">John Kuizenga</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="left">V. Olson; R.Emmett; D. Gillies;</td>
+</tr>
+<tr class="odd">
+<td align="right">20</td>
+<td align="left">Keiper</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Linda Hitt</td>
+</tr>
+<tr class="odd">
+<td align="right">19</td>
+<td align="left">Anna et al</td>
+</tr>
+<tr class="even">
+<td align="right">17</td>
+<td align="left">Ken Tatro,Carolyn McCleskey</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="left">Kevin Bailey</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="left">Hank mitchel; Linda Bentsen</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>12. Which Observers Logged the Largest Sightings Per Species?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> spotter_pro_clean.cinms_species, spotter_pro_clean.individual_count, trips.<span class="ot">&quot;Observer Names&quot;</span>, spotter_pro_clean.create_date
+<span class="kw">FROM</span> spotter_pro_clean 
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span>
+individual_count = (<span class="kw">select</span> <span class="fu">max</span>(individual_count) <span class="kw">from</span> spotter_pro_clean i <span class="kw">where</span> i.species = spotter_pro_clean.species)
+<span class="kw">AND</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> individual_count <span class="kw">DESC</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-13">Table 5.12: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">cinms_species</th>
+<th align="right">individual_count</th>
+<th align="left">Observer Names</th>
+<th align="left">create_date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Common Long-Beaked Dolphin</td>
+<td align="right">10000</td>
+<td align="left">Gary delanoeye;</td>
+<td align="left">2015-03-29 21:03:24+00:00</td>
+</tr>
+<tr class="even">
+<td align="left">Common Short-Beaked Dolphin</td>
+<td align="right">3000</td>
+<td align="left">NA</td>
+<td align="left">2014-03-16 18:14:26+00:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Blue Whale</td>
+<td align="right">1000</td>
+<td align="left">John Kuizenga</td>
+<td align="left">2016-06-09 19:47:02+00:00</td>
+</tr>
+<tr class="even">
+<td align="left">Bottlenose Dolphin</td>
+<td align="right">1000</td>
+<td align="left">Jim McClure &amp; John blinker</td>
+<td align="left">2016-06-30 17:33:03+00:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Pacific White-Sided Dolphin</td>
+<td align="right">500</td>
+<td align="left">Carol Keiper</td>
+<td align="left">2016-08-05 16:17:08+00:00</td>
+</tr>
+<tr class="even">
+<td align="left">Northern Right Whale Dolphin</td>
+<td align="right">200</td>
+<td align="left">Carol Keiper</td>
+<td align="left">2016-08-05 16:41:22+00:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Risso’s Dolphin</td>
+<td align="right">110</td>
+<td align="left">Debbie Shelley</td>
+<td align="left">2014-08-23 21:54:35+00:00</td>
+</tr>
+<tr class="even">
+<td align="left">Humpback Whale</td>
+<td align="right">44</td>
+<td align="left">Don Shubert; Rae emmet;</td>
+<td align="left">2017-07-11 18:45:07+00:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Gray Whale</td>
+<td align="right">35</td>
+<td align="left">Linda Hitt; Rose Messina</td>
+<td align="left">2016-01-27 22:52:15+00:00</td>
+</tr>
+<tr class="even">
+<td align="left">Minke Whale</td>
+<td align="right">33</td>
+<td align="left">Marilyn Dannehower; Debbie Fedeleo;</td>
+<td align="left">2014-08-21 18:09:38+00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>13. How many Humpback Whales do we see per hour on average on a vessel?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="fu">AVG</span>(spotter_pro_clean.individual_count/((julianday(trips.<span class="ot">&quot;end_date&quot;</span>) - julianday(trips.<span class="ot">&quot;start_date&quot;</span>))*<span class="dv">24</span>))  <span class="kw">AS</span> <span class="ot">&quot;Average Number Sighted/Hour&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean 
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span> spotter_pro_clean.cinms_species = <span class="ot">&quot;Humpback Whale&quot;</span>
+<span class="kw">AND</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-14">Table 5.13: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Average Number Sighted/Hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.85591451217955</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>14. What is the average sighted per hour per species?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> spotter_pro_clean.cinms_species, <span class="fu">AVG</span>((spotter_pro_clean.individual_count)/((julianday(trips.<span class="ot">&quot;end_date&quot;</span>) - julianday(trips.<span class="ot">&quot;start_date&quot;</span>))*<span class="dv">24</span>)) <span class="kw">AS</span> <span class="st">&#39;Average Sighting/Hour&#39;</span>  
+<span class="kw">FROM</span> spotter_pro_clean
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span>
+<span class="kw">GROUP</span> <span class="kw">BY</span> spotter_pro_clean.cinms_species;</code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-15">Table 5.14: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">cinms_species</th>
+<th align="right">Average Sighting/Hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Basking Shark</td>
+<td align="right">0.3836339</td>
+</tr>
+<tr class="even">
+<td align="left">Blue Shark</td>
+<td align="right">0.2166868</td>
+</tr>
+<tr class="odd">
+<td align="left">Blue Whale</td>
+<td align="right">6.1504854</td>
+</tr>
+<tr class="even">
+<td align="left">Bottlenose Dolphin</td>
+<td align="right">28.9757755</td>
+</tr>
+<tr class="odd">
+<td align="left">Common Long-Beaked Dolphin</td>
+<td align="right">139.7002303</td>
+</tr>
+<tr class="even">
+<td align="left">Common Short-Beaked Dolphin</td>
+<td align="right">275.7868519</td>
+</tr>
+<tr class="odd">
+<td align="left">Dali’s Porpoise</td>
+<td align="right">1.6430588</td>
+</tr>
+<tr class="even">
+<td align="left">Fin Whale</td>
+<td align="right">0.4630037</td>
+</tr>
+<tr class="odd">
+<td align="left">Gray Whale</td>
+<td align="right">1.3757028</td>
+</tr>
+<tr class="even">
+<td align="left">Harbor Porpoise</td>
+<td align="right">0.5285116</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>15. How many common short-beaked dolphins do we see per km on average on a vessel?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> (<span class="fu">SUM</span>(spotter_pro_clean.individual_count)/AVG(<span class="fu">LENGTH</span>(trips.geom))) <span class="kw">AS</span> <span class="ot">&quot;Average Number Sighted/km&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean 
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span> spotter_pro_clean.cinms_species = <span class="ot">&quot;Common Short-Beaked Dolphin&quot;</span>
+<span class="kw">AND</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-16">Table 5.15: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Average Number Sighted/km</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2.1642932675005</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>16. How many common dolphins (all types) do we see per km on average on a vessel?</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> (<span class="fu">SUM</span>(spotter_pro_clean.individual_count)/AVG(<span class="fu">LENGTH</span>(trips.geom))) <span class="kw">AS</span> <span class="ot">&quot;Average Number Sighted/km&quot;</span>
+<span class="kw">FROM</span> spotter_pro_clean 
+<span class="kw">INNER</span> <span class="kw">JOIN</span> trips <span class="kw">ON</span> spotter_pro_clean.trip_id = trips.trip_id
+<span class="kw">WHERE</span> spotter_pro_clean.cinms_species <span class="kw">LIKE</span> <span class="ot">&quot;%Common%&quot;</span>
+<span class="kw">AND</span> spotter_pro_clean.cinms_species <span class="kw">LIKE</span> <span class="ot">&quot;%Dolphin%&quot;</span>
+<span class="kw">AND</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-17">Table 5.16: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Average Number Sighted/km</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">16.4421245270836</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p><strong>17. What time does the Condor express usually leave? (Watch out, the time is in UTC.)</strong></p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="dt">TIME</span>(<span class="fu">AVG</span>(<span class="dt">time</span>(<span class="ot">&quot;create_date&quot;</span>))) <span class="kw">AS</span> <span class="ot">&quot;Average Departure Time (UTC)&quot;</span>
+<span class="kw">FROM</span> trips
+<span class="kw">WHERE</span> <span class="ot">&quot;CINMS Vessel&quot;</span> <span class="kw">IS</span> <span class="ot">&quot;Condor Express&quot;</span>
+<span class="kw">AND</span> trips.<span class="ot">&quot;end_date&quot;</span> &gt;= trips.<span class="ot">&quot;start_date&quot;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-18">Table 5.17: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Average Departure Time (UTC)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">16:14:32</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

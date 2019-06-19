@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Navigating the Database | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data</title>
+  <meta name="description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Navigating the Database | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  <meta name="github-repo" content="seatizenscience/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Navigating the Database | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data" />
+  
+  <meta name="twitter:description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  
+
+<meta name="author" content="Rae Fuhrman, Sean Goral, Niklas Griessbaum, Charlene Kormondy, Jasmine Vazin, and Molly Williams" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="docker.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SEAtizen Science Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#required-software"><i class="fa fa-check"></i><b>1.1</b> Required Software</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="database.html"><a href="database.html"><i class="fa fa-check"></i><b>2</b> Navigating the Database</a><ul>
+<li class="chapter" data-level="2.1" data-path="database.html"><a href="database.html#building-the-database"><i class="fa fa-check"></i><b>2.1</b> Building the database</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="database.html"><a href="database.html#to-start"><i class="fa fa-check"></i><b>2.1.1</b> To start:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="database.html"><a href="database.html#tables"><i class="fa fa-check"></i><b>2.2</b> Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="database.html"><a href="database.html#views"><i class="fa fa-check"></i><b>2.3</b> Views</a></li>
+<li class="chapter" data-level="2.4" data-path="database.html"><a href="database.html#additional-functionality"><i class="fa fa-check"></i><b>2.4</b> Additional functionality</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>3</b> Accessing the Database with Docker</a><ul>
+<li class="chapter" data-level="3.1" data-path="docker.html"><a href="docker.html#instructions-for-maclinux-users"><i class="fa fa-check"></i><b>3.1</b> Instructions for Mac/Linux users</a></li>
+<li class="chapter" data-level="3.2" data-path="docker.html"><a href="docker.html#instructions-for-windows-users"><i class="fa fa-check"></i><b>3.2</b> Instructions for Windows users</a></li>
+<li class="chapter" data-level="3.3" data-path="docker.html"><a href="docker.html#instructions-for-kitematic"><i class="fa fa-check"></i><b>3.3</b> Instructions for Kitematic</a></li>
+<li class="chapter" data-level="3.4" data-path="docker.html"><a href="docker.html#docker-syntax"><i class="fa fa-check"></i><b>3.4</b> Docker Syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gis.html"><a href="gis.html"><i class="fa fa-check"></i><b>4</b> Connecting the Database to GIS</a></li>
+<li class="chapter" data-level="5" data-path="queries.html"><a href="queries.html"><i class="fa fa-check"></i><b>5</b> Example Queries</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="database" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Navigating the Database</h1>
+<p>Note: to include data from before 2018, make sure you are accessing the old database via Docker and combining it with any new data.</p>
+<p><strong>Structures Query Language (SQL)</strong> can be used to query the database tables in order to attain useful information. <strong>SpatiaLite</strong> can be utilized to extend SQL spatial capabilities.</p>
+<div id="building-the-database" class="section level2">
+<h2><span class="header-section-number">2.1</span> Building the database</h2>
+<p>This is an instructional walkthrough on how to use the Python scripts that build the database. This will provide an in-depth procedure for those who want to understand the code or edit the process.</p>
+<p><strong>Software Requirements:</strong> Git, Python 3.6, Shapely, a database browser (such as Sqlite Studio or DB Browser), SQLite, SpatiaLite<em> </em>Only needed to do spatial analysis with SQL code</p>
+<div id="to-start" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> To start:</h3>
+<p><strong>1. Open terminal for command line interfacing:</strong></p>
+<p>This is the simplest way to ensure that users with different operating systems can utilize our data management application.</p>
+<p>OR</p>
+<p><strong><a href="https://www.anaconda.com/distribution/">Anaconda</a> &amp; <a href="https://docs.conda.io/en/latest/miniconda.html">MiniConda</a> are useful tools, which come with python.</strong></p>
+<p>This open-source platform is a simple way to perform Python data science, allowing individual data scientists to quickly download 1,500+ packages, manage libraries and dependencies, analyze data, and visualize results.</p>
+<p><strong>2. Ensure your computer has git and it’s configured:</strong></p>
+<p>Type git into the terminal. Many computers have git built in.</p>
+<p>If git is not present or configured, follow <a href="https://help.github.com/articles/set-up-git/">these instructions</a> to install and configure git.</p>
+<p><strong>3. Set your working directory to your Github folder:</strong></p>
+<p>$ <code>cd /Users/’name’/github/</code></p>
+<p><strong>4. Clone or Fork the <a href="https://github.com/SeaGoUnlimited/SeatizenScience">Seatizen Science GitHub repository</a>:</strong></p>
+<p><em>This gets you the SEAtizen Science Application (python scripts, queries, shapefiles, and useful tables)</em></p>
+<p><a href="https://help.github.com/articles/fork-a-repo/">Instructions on forking here.</a></p>
+<ul>
+<li>Go to the forked repository in your github, click Clone or download, copy the URL, and in the terminal type git clone, and then paste the URL you copied, and press enter.</li>
+</ul>
+<p><strong>5. Install <a href="https://www.sqlite.org/download.html">Sqlite3</a></strong></p>
+<ul>
+<li><a href="https://www.sqlite.org/2019/sqlite-dll-win64-x64-3270100.zip">Windows download</a></li>
+<li><a href="https://www.sqlite.org/2019/sqlite-tools-osx-x86-3270100.zip">Mac download</a></li>
+<li><a href="https://www.sqlite.org/2019/sqlite-tools-linux-x86-3270100.zip">Linux download</a></li>
+</ul>
+<p>Anaconda Method:</p>
+<ul>
+<li>If you have anaconda setup, you can use the Terminal or Anaconda prompt (Windows)</li>
+</ul>
+<p><code>conda install sqlite</code></p>
+<p>SQLite3 is needed to set up the database:</p>
+<ul>
+<li>SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.</li>
+<li>SQLite is an embedded SQL database engine. Unlike most other SQL databases, SQLite does not have a separate server process. SQLite reads and writes directly to ordinary disk files.</li>
+<li>A complete SQL database with multiple tables, indices, triggers, and views, is contained in a single disk file.</li>
+</ul>
+<p><strong>6. Install shapely</strong></p>
+<p>Shapely is a BSD licensed (minimally restricted permissions) Python package for manipulation and analysis of planar geometric objects.</p>
+<p>Mac:</p>
+<p><code>pip install shapely</code></p>
+<p>PC (in conda command):</p>
+<p><code>conda install shapely</code></p>
+<p><strong>7. Install homebrew:</strong></p>
+<p>Homebrew is useful to install the Spatialite extension needed to create the spatial features within the database. It’s also useful for other development applications.</p>
+<p>Mac:</p>
+<p>Enter into terminal, press enter, and let homebrew install:</p>
+<p><code>/user/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</code></p>
+<p>PC:</p>
+<ul>
+<li>Install miniconda (as opposed to Anaconda; much smaller file size)</li>
+<li>Miniconda includes python and conda (program that you can use to install additional packages; package management system)</li>
+<li>Install shapely for spatial analysis</li>
+</ul>
+<p><strong>8. Install Spatialite (Max/Linux only):</strong></p>
+<p>Enter into terminal: <code>brew install libspatialite</code></p>
+<p>**9. Load Spotter Pro and Whale Alert <a href="data:**" class="uri">data:**</a></p>
+<ul>
+<li>Ensure the working directory is set to the SeatizenScience folder which should be present after cloning the repository.</li>
+<li>Type cd, followed by the filepath to the SeatizenScience pro folder on your computer.</li>
+<li>Once the working directory is set, you are ready to run the python scripts that create the database.</li>
+<li>This will create and fill the database with data collected by trained Channel Island Naturalists Corps, CINC (citizen scientists) using the Spotter Pro app and Whale Alert app.</li>
+</ul>
+<p>For both apps data, Enter: <code>bash main.sh</code></p>
+<p>For Spotter Pro data, Enter: <code>python update_spotter.py</code></p>
+<ul>
+<li>If you get an error message that says “ModuleNotFoundError: No module named ‘shapely’”, type the following: <code>pip install shapely</code> For Whale Alert data, Enter this into terminal: <code>python update_whalealert.py</code></li>
+</ul>
+<p><strong>10. View the SQLite database:</strong></p>
+<p>Once the python scripts are finished running, the SQLite database will be present in the spotter pro folder. SQLite Studio appears to have the least glitches.</p>
+<p>The database can be easily browsed and queried using:</p>
+<ul>
+<li><a href="https://sqlitebrowser.org/">DB browser for SQLite</a></li>
+<li><a href="https://dbeaver.io/">DB Beaver</a></li>
+<li><a href="https://sqlitestudio.pl/index.rvt?act=download">SQLite Studio</a></li>
+</ul>
+<p>The database can also be visualized using <a href="https://qgis.org/en/site/forusers/download.html">QGIS</a></p>
+<hr />
+</div>
+</div>
+<div id="tables" class="section level2">
+<h2><span class="header-section-number">2.2</span> Tables</h2>
+<p>Information about how to work with tables in the SQL browser.</p>
+<ol style="list-style-type: decimal">
+<li><strong>sightings:</strong> Raw sightings data from Spotter Pro App</li>
+<li><strong>trips:</strong> GPS Exchange Format (GPX) or ‘VESSEL TRACKS’ for each trip associated with the Spotter Pro sightings data. ‘trip_id’ is the unofficial foreign key between the ‘sightings’, ‘weather’, and ‘trips’ table.</li>
+<li><strong>weather:</strong> Raw weather data for each Spotter Pro trip. ‘trip_id’ is the unofficial foreign key between the ‘sightings’, ‘weather’ and ‘trips’ table.</li>
+<li><strong>whale_alert:</strong> Raw sightings data from Spotter Pro App.</li>
+</ol>
+</div>
+<div id="views" class="section level2">
+<h2><span class="header-section-number">2.3</span> Views</h2>
+<ol style="list-style-type: decimal">
+<li><strong>spotter_pro_obis:</strong> ‘sightings’ data cleaned and reformatted to meet OBIS data standards.</li>
+<li><strong>whale_alert_obis:</strong> ‘whale_alert’ data cleaned and reformatted to meet OBIS data standards.</li>
+<li><strong>spotter_pro_whale_alert_obis:</strong> ‘spotter_pro_obis’ &amp; ‘whale_alert_obis’ data combines into a larger marine mammals citizen. science dataset which meets OBIS data standards.</li>
+<li><strong>spotter_pro_clean:</strong> Clean view of spotter pro data.</li>
+<li><strong>spotter_pro_weather:</strong> Clean view of the spotter pro weather data.</li>
+<li><strong>whale_alert_clean:</strong> Clean view of the whale alert data.</li>
+</ol>
+</div>
+<div id="additional-functionality" class="section level2">
+<h2><span class="header-section-number">2.4</span> Additional functionality</h2>
+<p><strong>1. Load shapefiles into spotter.sqlite database: Spatialite_tools is needed</strong></p>
+<p>Due to the large number of citizen scientists using a variety of devices in various geographic locations, shapefiles can be inserted into the database to only look at areas of interest. These can be queried in the database (SQL: INTERSECTS, etc.) to filter the database to particular regions and filter erroneous geographic info (land whale)</p>
+<p><em>To begin:</em></p>
+<ul>
+<li>Unzip Spatialite_tools on your computer</li>
+<li>To run spatial commands, enter commands like these into terminal: spatialite_tool ( -I ) shp specify the shapefile you want to import (-d) specify the database (-t) give it db geotable name (-g) give the geom (-s) SRID (-c) charset name</li>
+</ul>
+<p><em>Examples:</em></p>
+<p>Insert SBC shapefile into the database:</p>
+<p><code>spatialite_tool -i -shp test_shape_files/ocean_clip_small -d spotter.sqlite -t sb_channel -g geom -s 4326 -c UTF-8</code></p>
+<p>Insert west coast shapefile into the database:</p>
+<p><code>spatialite_tool -i -shp west_coast_ocean/ne_10m_ocean -d spotter.sqlite -t west_coast -g geom -s 4326 -c UTF-8</code></p>
+<p>Insert international shipping lane shapefile into the database:</p>
+<p><code>spatialite_tool -i -shp ship_shapefile/ship_lane_2013 -d spotter.sqlite -t ship_lane_2013 -g geom -s 4326 -c UTF-8;</code></p>
+<p>Insert simply ocean polygons (faster load time) shapefile into the database: <code>spatialite_tool -i -shp /Users/seangoral/simplified-water-polygons-complete/simplified_water_polygons -d spotter.sqlite -t ocean -g geom -s 3857 -c UTF-8;</code></p>
+<p><strong>2. To do spatial queries in the database like ‘intersects’, you must load the spatialite extension in SQLiteStudio or the terminal.</strong></p>
+<p><em>For SQLiteStudio – click the scroll and quill and paste in</em></p>
+<p>For Macs:</p>
+<p><code>SELECT load_extension(&quot;mod_spatialite.dylib&quot;);</code></p>
+<p>Linux:</p>
+<p><code>SELECT load_extension(&quot;mod_spatialite.so&quot;);</code></p>
+<p>PC:</p>
+<p><code>SELECT load_extension(&quot;mod_spatialite.dll&quot;);</code></p>
+<p><strong>3. Load the expanded functions extension in SqliteStudio (functions like standard deviation) Mac and Linux Only</strong></p>
+<p><a href="http://kedeligdata.blogspot.com/2010/09/sqlite-with-stdev-standard-deviation.html">Further documentation here</a></p>
+<p>Includes:</p>
+<ul>
+<li><em>Math:</em> acos, asin, atan, atn2, atan2, acosh, asinh, atanh, difference, degrees, radians, cos, sin, tan, cot, cosh, sinh, tanh, coth, exp, log, log10, power, sign, sqrt, square, ceil, floor, pi.</li>
+<li><em>String:</em> replicate, charindex, leftstr, rightstr, ltrim, rtrim, trim, replace, reverse, proper, padl, padr, padc, strfilter.</li>
+<li><em>Aggregate:</em> stdev, variance, mode, median, lower_quartile, upper_quartile.</li>
+</ul>
+<p>To install:</p>
+<ul>
+<li>Fetch the source code for the extension <a href="http://www.sqlite.org/contrib?orderby=date">here</a> <a href="http://www.sqlite.org/contrib/download/extension-functions.c?get=25">direct link</a></li>
+<li>Compile it:</li>
+</ul>
+<p>Mac $: <code>gcc -fno-common -dynamiclib extension-functions.c -o libsqlitefunctions.dylib</code></p>
+<p>Linux $: <code>gcc -fPIC -lm -shared extension-functions.c -o libsqlitefunctions.so</code></p>
+<ul>
+<li>A library should be created. Copy the resulting library to some location where you want to store it. In my case that would be $HOME/opt/lib</li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Before executing your select statements be sure to load the extension in SQLite studio or favorite database browser by issuing the following command (within a SQL editor):</li>
+</ol></li>
+</ul>
+<p><code>select load_extension('/full/path/to/libsqlitefunctions.so);</code></p>
+<p>This extension library has also been added to the SeatizenScience github, so you can just enter your github path to spotter_pro/ libsqlitefunctions</p>
+<p>Example Mac:</p>
+<p><code>select load_extension('/Users/seangoral/github/SEAtizen_Science/spotter_pro/libsqlitefunctions.dylib');</code></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="docker.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

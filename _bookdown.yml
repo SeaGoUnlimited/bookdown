@@ -1,0 +1,12 @@
+book_filename: "series"
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files: [
+  "index.Rmd",
+  "docker.Rmd",
+  "database.Rmd",
+  "queries.Rmd",
+  "gis.Rmd"]
+delete_merged_file: true 
+output_dir: "docs"

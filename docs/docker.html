@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Accessing the Database with Docker | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data</title>
+  <meta name="description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Accessing the Database with Docker | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  <meta name="github-repo" content="seatizenscience/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Accessing the Database with Docker | The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data" />
+  
+  <meta name="twitter:description" content="A step-by-step guide to accessing and using the new and improved cetacean sighting database" />
+  
+
+<meta name="author" content="Rae Fuhrman, Sean Goral, Niklas Griessbaum, Charlene Kormondy, Jasmine Vazin, and Molly Williams" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="database.html">
+<link rel="next" href="gis.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SEAtizen Science Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#required-software"><i class="fa fa-check"></i><b>1.1</b> Required Software</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="database.html"><a href="database.html"><i class="fa fa-check"></i><b>2</b> Navigating the Database</a><ul>
+<li class="chapter" data-level="2.1" data-path="database.html"><a href="database.html#building-the-database"><i class="fa fa-check"></i><b>2.1</b> Building the database</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="database.html"><a href="database.html#to-start"><i class="fa fa-check"></i><b>2.1.1</b> To start:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="database.html"><a href="database.html#tables"><i class="fa fa-check"></i><b>2.2</b> Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="database.html"><a href="database.html#views"><i class="fa fa-check"></i><b>2.3</b> Views</a></li>
+<li class="chapter" data-level="2.4" data-path="database.html"><a href="database.html#additional-functionality"><i class="fa fa-check"></i><b>2.4</b> Additional functionality</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>3</b> Accessing the Database with Docker</a><ul>
+<li class="chapter" data-level="3.1" data-path="docker.html"><a href="docker.html#instructions-for-maclinux-users"><i class="fa fa-check"></i><b>3.1</b> Instructions for Mac/Linux users</a></li>
+<li class="chapter" data-level="3.2" data-path="docker.html"><a href="docker.html#instructions-for-windows-users"><i class="fa fa-check"></i><b>3.2</b> Instructions for Windows users</a></li>
+<li class="chapter" data-level="3.3" data-path="docker.html"><a href="docker.html#instructions-for-kitematic"><i class="fa fa-check"></i><b>3.3</b> Instructions for Kitematic</a></li>
+<li class="chapter" data-level="3.4" data-path="docker.html"><a href="docker.html#docker-syntax"><i class="fa fa-check"></i><b>3.4</b> Docker Syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gis.html"><a href="gis.html"><i class="fa fa-check"></i><b>4</b> Connecting the Database to GIS</a></li>
+<li class="chapter" data-level="5" data-path="queries.html"><a href="queries.html"><i class="fa fa-check"></i><b>5</b> Example Queries</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="docker" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Accessing the Database with Docker</h1>
+<p>Some info about Docker</p>
+<p><em>Note: Ensure all required software is installed before starting Docker instructions (see 1.1: Required Software)</em></p>
+<div id="instructions-for-maclinux-users" class="section level2">
+<h2><span class="header-section-number">3.1</span> Instructions for Mac/Linux users</h2>
+<p>The only text you need to copy and paste into the terminal is offset in a different font below.</p>
+<p><strong>1. Open command terminal</strong> - Shortcut: Command+space, type “terminal”</p>
+<p><br> <strong>2. Login to Docker account in the terminal</strong></p>
+<p>$ <code>docker login --username=your_username</code></p>
+<div class="figure">
+<img src="images/login.png" alt="This example uses seatizen as an example username. The information behind the $ is information about your computer and will be different for every user. Hitting enter after this line will prompt you to enter your password (The terminal most likely won’t show any characters as you type, but it is recognizing keystrokes). Press enter again to complete login." />
+<p class="caption">This example uses “seatizen” as an example username. The information behind the $ is information about your computer and will be different for every user. Hitting enter after this line will prompt you to enter your password (The terminal most likely won’t show any characters as you type, but it is recognizing keystrokes). Press enter again to complete login.</p>
+</div>
+<p><br> <strong>3. Pull docker image:</strong></p>
+<p>$ <code>docker pull cinms/seatizen-science</code></p>
+<div class="figure">
+<img src="images/pull.png" alt="This step takes a while (15-20 min); you can see each component downloading and being pulled from the server in the terminal window. When the process is complete, it should look like this and you can move to step 4." />
+<p class="caption">This step takes a while (15-20 min); you can see each component downloading and being pulled from the server in the terminal window. When the process is complete, it should look like this and you can move to step 4.</p>
+</div>
+<p><br> <strong>4. Run image:</strong></p>
+<p>$ <code>docker run –it cinms/seatizen-science</code></p>
+<div class="figure">
+<img src="images/run.png" alt="This step also will take 10 or so minutes. You will see new Trip IDs appearing in the terminal window!" />
+<p class="caption">This step also will take 10 or so minutes. You will see new Trip IDs appearing in the terminal window!</p>
+</div>
+<p><br> <strong>5. View container IDs and copy the most recently created one:</strong></p>
+<p>$ <code>docker ps -a</code></p>
+<div class="figure">
+<img src="images/containers.png" />
+
+</div>
+<p><br> <strong>6. Use “docker cp” to copy the database to a local folder:</strong></p>
+<p>$ <code>docker cp containerID:/spotter.sqlite/file/path/here</code></p>
+<div class="figure">
+<img src="images/cp.png" alt="Example shown for a new folder called Database in Users/mollywilliams on my local drive." />
+<p class="caption">Example shown for a new folder called “Database” in Users/mollywilliams on my local drive.</p>
+</div>
+<p>Nice job! Jump to Chapter 3 to learn how to navigate the database using SQLite Studio.</p>
+<hr />
+</div>
+<div id="instructions-for-windows-users" class="section level2">
+<h2><span class="header-section-number">3.2</span> Instructions for Windows users</h2>
+<p><strong>1. <a href="https://download.docker.com/win/stable/DockerToolbox.exe">Download Docker Toolbox</a></strong> Click the DockerToolbox.exe file and follow the instructions in the “Welcome to Docker Toolbox Setup Wizard.” Once the download is complete, open Docker Quickstart Terminal.</p>
+<p><strong>2. Login to Docker</strong> In the terminal, type “docker login”. Once you hit enter, Docker Quickstart Terminal will prompt you to enter your username and password. You can either use the previously setup account (Username=cinms, Password=cinmswhales) or your own account. When you are successfully logged in, Docker Quickstart Terminal will say “Login Succeeded”.</p>
+<p><br> <strong>3. Pull docker image:</strong></p>
+<p>$ <code>docker pull cinms/seatizen-science</code></p>
+<p><br> <strong>4. Run image:</strong></p>
+<p>$ <code>docker run –it cinms/seatizen-science</code></p>
+<p><br> <strong>5. View container IDs and copy the most recently created one:</strong></p>
+<p>$ <code>docker ps -a</code></p>
+<p><br> <strong>6. Use “docker cp” to copy the database to a local folder:</strong></p>
+<p>$ <code>docker cp containerID:spotter.sqlite “c:\file\path”</code></p>
+<p><br> <strong>7. Mount Docker to a local database using the Docker Quickstart Terminal:</strong></p>
+<p>$ <code>docker run –it –v c:/Local/Path/For/DatabaseFolder/spotter.sqlite cinms/seatizen-science</code></p>
+<p><em>For example: docker run –it -v c:/Users/ckorm/spotter.sqlite cinms/seatizen-science</em></p>
+<hr />
+</div>
+<div id="instructions-for-kitematic" class="section level2">
+<h2><span class="header-section-number">3.3</span> Instructions for Kitematic</h2>
+<p>(for Windows users, as an alternative to Docker Toolbox)</p>
+<ol style="list-style-type: decimal">
+<li><p>Setup Docker on your computer by installing docker toolbox: <a href="https://docs.docker.com/toolbox/toolbox_install_windows/" class="uri">https://docs.docker.com/toolbox/toolbox_install_windows/</a></p></li>
+<li><p>Open Docker Quickstart Terminal</p></li>
+<li><p>Search for “seatizen-science”: -Click “create”</p></li>
+<li><p>Run the “seatizen-science”: -If it isn’t running already, click “Run”</p></li>
+<li><p>Click DOCKER CLI or Use Docker Quickstart Terminal: -Should open command prompt/terminal</p></li>
+<li><p>See all container ID’s:</p>
+<p>$docker ps -a</p></li>
+<li><p>Copy the container ID that was just created and use: “docker cp” to copy the database to a local folder:</p></li>
+</ol>
+<p>Mac or Linux: docker cp container ID:/spotter.sqlite /Users/folder /spotter.sqlite Windows: docker cp containerID:spotter.sqlite “c:.sqlite” Finally, to update your newly acquired database in the future, mount the seatizen_science_app to the local database.</p>
+<ul>
+<li>Type “docker run” space “-v” then the path to your local spotter.sqlite database, then type “:/spotter.sqlite” followed by a space, and type “seangoral/seatizen_science_app” and press ENTER.</li>
+</ul>
+<p>EX:</p>
+<p>docker run -v /Local/Path/For/DatabaseFolder/spotter.sqlite:/spotter.sqlite seangoral/seatizen_science_app</p>
+<hr />
+</div>
+<div id="docker-syntax" class="section level2">
+<h2><span class="header-section-number">3.4</span> Docker Syntax</h2>
+<p><a href="https://docs.docker.com/engine/reference/builder/">Read more on specifics on docker syntax and commands here.</a></p>
+<p><strong>Management Commands:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>config</td>
+<td>Manage Docker configs</td>
+</tr>
+<tr class="even">
+<td>container</td>
+<td>Manage containers</td>
+</tr>
+<tr class="odd">
+<td>image</td>
+<td>Manage images</td>
+</tr>
+<tr class="even">
+<td>network</td>
+<td>Manage networks</td>
+</tr>
+<tr class="odd">
+<td>node</td>
+<td>Manage Swarm nodes</td>
+</tr>
+<tr class="even">
+<td>plugin</td>
+<td>Manage plugins</td>
+</tr>
+<tr class="odd">
+<td>secret</td>
+<td>Manage Docker secrets</td>
+</tr>
+<tr class="even">
+<td>service</td>
+<td>Manage services</td>
+</tr>
+<tr class="odd">
+<td>swarm</td>
+<td>Manage Swarm</td>
+</tr>
+<tr class="even">
+<td>system</td>
+<td>Manage Docker</td>
+</tr>
+<tr class="odd">
+<td>trust</td>
+<td>Manage trust on Docker images</td>
+</tr>
+<tr class="even">
+<td>volume</td>
+<td>Manage volumes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commands:</strong></p>
+<table style="width:25%;">
+<colgroup>
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>attach</td>
+<td>Attach local standard input, output, and error streams to a running container</td>
+</tr>
+<tr class="even">
+<td>build</td>
+<td>Build an image from a Dockerfile</td>
+</tr>
+<tr class="odd">
+<td>commit</td>
+<td>Create a new image from a container’s changes</td>
+</tr>
+<tr class="even">
+<td>cp</td>
+<td>Copy files/folders between a container and the local filesystem</td>
+</tr>
+<tr class="odd">
+<td>create</td>
+<td>Create a new container</td>
+</tr>
+<tr class="even">
+<td>diff</td>
+<td>Inspect changes to files or directories on a container’s filesystem</td>
+</tr>
+<tr class="odd">
+<td>events</td>
+<td>Get real time events from the server</td>
+</tr>
+<tr class="even">
+<td>exec</td>
+<td>Run a command in a running container</td>
+</tr>
+<tr class="odd">
+<td>export</td>
+<td>Export a container’s filesystem as a tar archive</td>
+</tr>
+<tr class="even">
+<td>history</td>
+<td>Show the history of an image</td>
+</tr>
+<tr class="odd">
+<td>images</td>
+<td>List images</td>
+</tr>
+<tr class="even">
+<td>import</td>
+<td>Import the contents from a tarball to create a filesystem image</td>
+</tr>
+<tr class="odd">
+<td>info</td>
+<td>Display system-wide information</td>
+</tr>
+<tr class="even">
+<td>inspect</td>
+<td>Return low-level information on Docker objects</td>
+</tr>
+<tr class="odd">
+<td>kill</td>
+<td>Kill one or more running containers</td>
+</tr>
+<tr class="even">
+<td>load</td>
+<td>Load an image from a tar archive or STDIN</td>
+</tr>
+<tr class="odd">
+<td>login</td>
+<td>Log in to a Docker registry</td>
+</tr>
+<tr class="even">
+<td>logout</td>
+<td>Log out from a Docker registry</td>
+</tr>
+<tr class="odd">
+<td>logs</td>
+<td>Fetch the logs of a container</td>
+</tr>
+<tr class="even">
+<td>pause</td>
+<td>Pause all processes within one or more containers</td>
+</tr>
+<tr class="odd">
+<td>port</td>
+<td>List port mappings or a specific mapping for the container</td>
+</tr>
+<tr class="even">
+<td>ps</td>
+<td>List containers</td>
+</tr>
+<tr class="odd">
+<td>pull</td>
+<td>Pull an image or a repository from a registry</td>
+</tr>
+<tr class="even">
+<td>push</td>
+<td>Push an image or a repository to a registry</td>
+</tr>
+<tr class="odd">
+<td>rename</td>
+<td>Rename a container</td>
+</tr>
+<tr class="even">
+<td>restart</td>
+<td>Restart one or more containers</td>
+</tr>
+<tr class="odd">
+<td>rm</td>
+<td>Remove one or more containers</td>
+</tr>
+<tr class="even">
+<td>rmi</td>
+<td>Remove one or more images</td>
+</tr>
+<tr class="odd">
+<td>run</td>
+<td>Run a command in a new container</td>
+</tr>
+<tr class="even">
+<td>save</td>
+<td>Save one or more images to a tar archive (streamed to STDOUT by default)</td>
+</tr>
+<tr class="odd">
+<td>search</td>
+<td>Search the Docker Hub for images</td>
+</tr>
+<tr class="even">
+<td>start</td>
+<td>Start one or more stopped containers</td>
+</tr>
+<tr class="odd">
+<td>stats</td>
+<td>Display a live stream of container(s) resource usage statistics</td>
+</tr>
+<tr class="even">
+<td>stop</td>
+<td>Stop one or more running containers</td>
+</tr>
+<tr class="odd">
+<td>tag</td>
+<td>Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE</td>
+</tr>
+<tr class="even">
+<td>top</td>
+<td>Display the running processes of a container</td>
+</tr>
+<tr class="odd">
+<td>unpause</td>
+<td>Unpause all processes within one or more containers</td>
+</tr>
+<tr class="even">
+<td>update</td>
+<td>Update configuration of one or more containers</td>
+</tr>
+<tr class="odd">
+<td>version</td>
+<td>Show the Docker version information</td>
+</tr>
+<tr class="even">
+<td>wait</td>
+<td>Block until one or more containers stop, then print their exit codes</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="database.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

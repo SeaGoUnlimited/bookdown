@@ -1,0 +1,13 @@
+# Connecting the Database to GIS {#gis}
+
+0. These instructions expect you to be a somewhat familiar user of GIS software, and are tailored for the open-source QGIS. 
+
+1. Create a new project. Open the Data Source Manager and browse to SpatiaLite on the left. Click "new" under Connections and browse to your local copy of the spotter.sqlite database. Hit connect and close the Data Source Manager.
+
+2. Within the browser on the left, expand the heading "SpatiaLite". The "spotter.sqlite" database should now be visible, within which are a number of tables that can be added to the map by double clicking on them, such as the clean table we created "spotter_pro_obis". Visualize any of these tables in context by turning on a basemap of your choosing such as open street maps under XYZ tiles. 
+
+3. Use SQL queries to filter by right clicking on the layer added to your map and click "filter". The simple query builder allows you to click through all fields of the table and filter them with various SQL queries by clicking your selected fields and operators. Open the attribute table to know what specific values to use in your queries.  
+
+
+
+

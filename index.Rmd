@@ -1,0 +1,46 @@
+--- 
+title: "The SEAtizen Science Guide to Accessing Spotter Pro and Whale Alert Data"
+author: Rae Fuhrman, Sean Goral, Niklas Griessbaum, Charlene Kormondy, Jasmine Vazin, and Molly Williams
+date: "June 2019"
+bibliography:
+- book.bib
+- packages.bib
+description: A step-by-step guide to accessing and using the new and improved cetacean sighting database
+documentclass: book
+github-repo: seatizenscience/bookdown
+link-citations: yes
+site: bookdown::bookdown_site
+biblio-style: apalike
+---
+
+# Introduction
+
+The broad scope of this project is to promote the validity of citizen science as a widely applicable data collection method for research and resource management purposes. Ocean management is in need of spatially expansive, high-quality species distribution data, which can increasingly be collected by non-expert ocean users due to smartphone technology. The more focused objective of the project is to analyze how citizen science is being modernized using apps developed through NOAA and other government agencies that crowd-source observational data (including CINMS’ Whale Spotter Pro and Whale Alert).
+
+**This appliction:**
+
+1. Harvests data from the Spotter Pro and Whale Alert smartphone apps hosted on the Conserve.io database
+2. Creates a new, open-source database using SQLite.
+3. Inserts harvested data into said SQLite database.
+4. Uses virtual tables within the database to clean and reformat the data to [OBIS standards](https://obis.org/).
+
+We used Docker to create a container that allows users to run the application without installing Python or required modules.
+
+
+----
+
+
+## Required Software
+
+1. Download and install [SQLite Studio](https://sqlitestudio.pl/index.rvt?act=download)
+2. Create a [Docker Hub](https://hub.docker.com) account OR use the CINMS Docker Account:
+    - Username: cinms
+    - Password: cinmswhales
+3. Download and install Docker:
+    - Mac and Windows 10 Pro: [Docker Desktop](https://www.docker.com/products/docker-desktop)
+    - Windows and older Macs: [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/)
+    - Older Windows: [Kitematic](https://github.com/docker/kitematic/releases/)
+    - Linux: [Docker CE]()
+
+
+*Note: You will need ~1.5 GB of space on your computer for Docker, SQLite and the database.*

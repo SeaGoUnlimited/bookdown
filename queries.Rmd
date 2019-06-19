@@ -1,0 +1,202 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Example Queries {#queries}
+*Using any SQLite browser, copy and paste these queries to get information about the data.*
+
+```{r, include=FALSE}
+library(DBI)
+db <- dbConnect(RSQLite::SQLite(), dbname = "spotter.sqlite")
+
+```
+
+[For more information on how to use SQL, check out this resource!](https://swcarpentry.github.io/sql-novice-survey/) 
+
+
+**1. How many total sightings have been recorded?**
+
+```{sql connection=db}
+SELECT DISTINCT COUNT (id)
+FROM spotter_pro_clean
+```
+
+----
+
+**2. How many total sightings have there been in 2018?**
+```{sql connection=db}
+SELECT COUNT ("cinms_species") AS "Number Sighted: 2018"
+FROM spotter_pro_clean
+WHERE ("create_date") 
+BETWEEN "2018-01-01" AND "2018-12-31"
+```
+
+----
+
+**3. How many common short-beaked dolphins were sighted last September?**
+```{sql connection=db}
+SELECT COUNT (*) AS "Common Short-Beaked Dolphins: Sept-2018"
+FROM spotter_pro_clean
+WHERE "cinms_species" = "Common Short-Beaked Dolphin"
+AND "create_date" 
+BETWEEN "2018-09-01" AND "2018-09-31"
+```
+----
+
+**4. On average, how many animals do we have per sighting, resolved per species?**
+```{sql connection=db}
+SELECT cinms_species, AVG ("individual_count") AS "Average Number per Sighting"
+FROM spotter_pro_clean
+GROUP BY cinms_species
+
+```
+
+----
+
+**5. How many sightings have there been on each trip?**
+```{sql connection=db}
+SELECT "individual_count", "trip_id"
+FROM spotter_pro_clean
+GROUP BY "trip_id"
+ORDER BY "individual_count" DESC
+```
+
+----
+
+**6. What is the probability of seeing a species on a trip (resolved for all species)?**
+```{sql connection=db}
+SELECT cinms_species, "individual_count" *1.0/ (SELECT SUM ("individual_count" ) 
+FROM spotter_pro_clean) AS "Probability"
+FROM spotter_pro_clean
+GROUP BY cinms_species
+ORDER BY "Probability" DESC
+```
+
+----
+
+**7. What is the biggest number of sightings per species?**
+```{sql connection=db}
+SELECT cinms_species, individual_count
+from spotter_pro_clean
+where
+individual_count = (select max(individual_count) from spotter_pro_clean i where i.cinms_species = spotter_pro_clean.cinms_species)
+GROUP BY cinms_species
+```
+
+----
+
+**8. How long (in time) has each trip been?**
+```{sql connection=db}
+SELECT trip_id, (julianday("end_date") - julianday("start_date"))*24 AS "Trip Duration (hours)"
+FROM trips
+WHERE trips."end_date" >= trips."start_date"
+ORDER BY "Trip Duration (hours)" DESC 
+```
+
+---
+
+**9. How fast does each vessel go on average?**
+
+```{sql connection=db}
+SELECT "CINMS vessel", AVG(length (geom)/1000)/((julianday("end_date") - julianday("start_date"))*24) AS "speed(km/h)"
+FROM trips
+WHERE trips."end_date" >= trips."start_date"
+GROUP BY "CINMS vessel";
+```
+
+----
+**10. Which vessel is the best? Which vessel has the most sightings per trip?**
+
+```{sql connection=db}
+SELECT spotter_pro_clean.individual_count, trips.trip_id, trips."CINMS Vessel"
+FROM spotter_pro_clean 
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE trips."end_date" >= trips."start_date"
+ORDER BY individual_count DESC
+```
+
+
+----
+
+**11. Which observer saw the most Humpback Whales?**
+```{sql connection=db}
+SELECT spotter_pro_clean.individual_count, trips."Observer Names"
+FROM spotter_pro_clean 
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE spotter_pro_clean.cinms_species = "Humpback Whale"
+AND trips."end_date" >= trips."start_date"
+ORDER BY individual_count DESC
+```
+
+---
+
+**12. Which Observers Logged the Largest Sightings Per Species?**
+```{sql connection=db}
+SELECT spotter_pro_clean.cinms_species, spotter_pro_clean.individual_count, trips."Observer Names", spotter_pro_clean.create_date
+FROM spotter_pro_clean 
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE
+individual_count = (select max(individual_count) from spotter_pro_clean i where i.species = spotter_pro_clean.species)
+AND trips."end_date" >= trips."start_date"
+ORDER BY individual_count DESC
+```
+
+----
+**13. How many Humpback Whales do we see per hour on average on a vessel?**
+```{sql connection=db}
+SELECT AVG(spotter_pro_clean.individual_count/((julianday(trips."end_date") - julianday(trips."start_date"))*24))  AS "Average Number Sighted/Hour"
+FROM spotter_pro_clean 
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE spotter_pro_clean.cinms_species = "Humpback Whale"
+AND trips."end_date" >= trips."start_date"
+```
+
+---
+
+
+**14. What is the average sighted per hour per species?**
+```{sql connection=db}
+SELECT spotter_pro_clean.cinms_species, AVG((spotter_pro_clean.individual_count)/((julianday(trips."end_date") - julianday(trips."start_date"))*24)) AS 'Average Sighting/Hour'  
+FROM spotter_pro_clean
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE trips."end_date" >= trips."start_date"
+GROUP BY spotter_pro_clean.cinms_species;
+```
+
+---
+
+**15. How many common short-beaked dolphins do we see per km on average on a vessel?**
+```{sql connection=db}
+SELECT (SUM(spotter_pro_clean.individual_count)/AVG(LENGTH(trips.geom))) AS "Average Number Sighted/km"
+FROM spotter_pro_clean 
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE spotter_pro_clean.cinms_species = "Common Short-Beaked Dolphin"
+AND trips."end_date" >= trips."start_date"
+```
+
+---
+
+**16. How many common dolphins (all types) do we see per km on average on a vessel?**
+```{sql connection=db}
+SELECT (SUM(spotter_pro_clean.individual_count)/AVG(LENGTH(trips.geom))) AS "Average Number Sighted/km"
+FROM spotter_pro_clean 
+INNER JOIN trips ON spotter_pro_clean.trip_id = trips.trip_id
+WHERE spotter_pro_clean.cinms_species LIKE "%Common%"
+AND spotter_pro_clean.cinms_species LIKE "%Dolphin%"
+AND trips."end_date" >= trips."start_date"
+```
+
+---
+
+
+**17. What time does the Condor express usually leave? (Watch out, the time is in UTC.)**
+```{sql connection=db}
+SELECT TIME(AVG(time("create_date"))) AS "Average Departure Time (UTC)"
+FROM trips
+WHERE "CINMS Vessel" IS "Condor Express"
+AND trips."end_date" >= trips."start_date"
+```
+
+
+
